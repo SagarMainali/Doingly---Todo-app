@@ -5,7 +5,7 @@ function App() {
   return (
     <div className='py-8'>
       <div className="container mx-auto bg-graay p-8 rounded-lg">
-        <h1 className='text-center text-3xl font-semibold mb-8'>My Todos</h1>
+        <h1 className='text-center text-4xl text-bluey font-semibold mb-8'>My Todos</h1>
         <Header />
         <TodoContainer />
       </div >
