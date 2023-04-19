@@ -4,9 +4,10 @@ import TodoContainer from './Components/TodoContainer'
 function App() {
   return (
     <div className='py-8'>
-      <div className="container mx-auto bg-graay p-8 rounded-lg">
-        <h1 className='text-center text-4xl text-bluey font-semibold mb-8'>My Todos</h1>
+      <div className="container mx-auto bg-graay py-8 px-12 rounded-lg flex flex-col gap-10">
+        <h1 className='text-center text-4xl text-bluey font-semibold underline'>My Todos</h1>
         <Header />
+        <hr className='border border-gray-300'/>
         <TodoContainer />
       </div >
     </div>
