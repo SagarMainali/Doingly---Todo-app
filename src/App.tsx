@@ -8,7 +8,37 @@ function App() {
   const [todo, setTodo] = useState<TodoObj[]>([])
 
   function addTodo(): void {
-    console.log('todo added')
+
+    // let temp: TodoObj[] = [...todo]
+    // temp.push(
+    //   {
+    //     id: Date.now(),
+    //     todo: 'hello world',
+    //     checked: false,
+    //     dueDate: '20 Apr'
+    //   }
+    // )
+    // setTodo(temp)
+
+    setTodo((prevState: TodoObj[]) => (
+      [
+        ...prevState,
+        {
+          id: Date.now(),
+          todo: 'hello world, this is a test',
+          checked: false,
+          dueDate: '20 Apr, 2023'
+        }
+      ]
+    ))
+  }
+
+  function removeTodo(id: number) { 
+
+  }
+
+  function editTodo(id: number) { 
+
   }
 
   return (
