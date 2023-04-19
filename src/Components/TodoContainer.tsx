@@ -4,7 +4,7 @@ import Todo from './Todo'
 function TodoContainer() {
      return (
           <div className='flex flex-col gap-2'>
-               <fieldset className='px-2'>
+               <fieldset className='px-2 mb-2'>
                     <label>Filter
                          <select name="filter">
                               <option value="all">All</option>
