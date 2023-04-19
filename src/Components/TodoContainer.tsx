@@ -1,7 +1,12 @@
 import React from 'react'
 import Todo from './Todo'
+import TodoObj from '../todoModel'
 
-function TodoContainer() {
+// type Props = {
+//      todo: TodoObj[]
+// }
+// function TodoContainer(props: Props) {
+function TodoContainer({ todo }: { todo: TodoObj[] }) {
      return (
           <div className='flex flex-col gap-2'>
                <fieldset className='px-2 mb-2'>
@@ -13,9 +18,7 @@ function TodoContainer() {
                          </select>
                     </label>
                </fieldset>
-               <Todo />
-               <Todo />
-               <Todo />
+               {todo.map((item: TodoObj) => <Todo key={item.id} item={item} />)}
           </div>
      )
 }
