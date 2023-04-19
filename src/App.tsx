@@ -1,7 +1,7 @@
 
 function App() {
   return (
-    <div className="p-8 text-2xl text-purple-600">This is tailwind css</div>
+    <div className="md:container mx-auto p-8 text-2xl text-indigo-50 bg-indigo-500 ">This is tailwind css</div>
   )
 }
 
