@@ -16,6 +16,7 @@ export default {
         'greyy': '#747574',
       },
       screens: {
+        'xsm': '520px',
         'sm': '600px',
         'md': '750px',
         'lg': '1000px',

@@ -3,11 +3,13 @@ import TodoContainer from './Components/TodoContainer'
 
 function App() {
   return (
-    <div className="bg-graay md:container mx-auto ">
-      <h1>My Todos</h1>
-      <Header />
-      <TodoContainer />
-    </div >
+    <div className='py-8'>
+      <div className="container mx-auto bg-graay p-8 rounded-lg">
+        <h1 className='text-center text-3xl font-semibold mb-8'>My Todos</h1>
+        <Header />
+        <TodoContainer />
+      </div >
+    </div>
   )
 }
 
