@@ -2,7 +2,17 @@ import Todo from './Todo'
 
 function TodoContainer() {
      return (
-          <div>
+          <div className='flex flex-col'>
+               <fieldset className='px-2'>
+                    <label>Filter
+                         <select name="filter">
+                              <option value="all">All</option>
+                              <option value="done">Done</option>
+                              <option value="todo">Todo</option>
+                         </select>
+                    </label>
+               </fieldset>
+               <Todo />
                <Todo />
           </div>
      )

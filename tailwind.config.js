@@ -13,7 +13,7 @@ export default {
         'bluey': '#3B71CA',
         'bulu': '#54B4D3',
         'reddy': '#DC4C64',
-        'greyy': '#747574',
+        'greyy': '#656565',
       },
       screens: {
         'xsm': '520px',
