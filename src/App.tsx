@@ -1,8 +1,13 @@
-import React from 'react'
+import Header from './Components/Header'
+import TodoContainer from './Components/TodoContainer'
 
 function App() {
   return (
-    <div className="md:container mx-auto p-8 text-2xl text-indigo-50 bg-[#EEF1F3] ">This is tailwind css</div>
+    <div className="bg-graay md:container mx-auto ">
+      <h1>My Todos</h1>
+      <Header />
+      <TodoContainer />
+    </div >
   )
 }
 

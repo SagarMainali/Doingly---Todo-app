@@ -1,9 +1,11 @@
-import React from 'react'
+import Todo from './Todo'
 
 function TodoContainer() {
-  return (
-    <div>TodoContainer</div>
-  )
+     return (
+          <div>
+               <Todo />
+          </div>
+     )
 }
 
 export default TodoContainer
