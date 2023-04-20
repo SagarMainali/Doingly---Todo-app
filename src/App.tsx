@@ -28,3 +28,8 @@ function App() {
 }
 
 export default App
+
+// todo
+// display message if input value is null
+// add edit functionality
+// add delete functionality

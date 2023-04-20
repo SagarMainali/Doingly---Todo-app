@@ -48,13 +48,13 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
 
                setTodo((prevState: TodoObj[]) => (
                     [
-                         ...prevState,
                          {
                               id: Date.now(),
                               todo: formData.todo,
                               checked: false,
                               dueDate: formData.date
-                         }
+                         },
+                         ...prevState
                     ]
                ))
 
