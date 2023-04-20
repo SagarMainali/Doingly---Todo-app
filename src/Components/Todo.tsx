@@ -1,4 +1,3 @@
-import React from 'react'
 import TodoObj from '../todoModel'
 
 function Todo({ item }: { item: TodoObj }) {
