@@ -42,7 +42,10 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
 
      // add todos
      function addTodo(formData: FormDataObj): void {
-          formData.todo &&
+
+          const todoTrim = formData.todo.trim()
+          if (todoTrim.length > 0) {
+
                setTodo((prevState: TodoObj[]) => (
                     [
                          ...prevState,
@@ -54,11 +57,28 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
                          }
                     ]
                ))
+
+               clearInputField()
+          }
+
+          else {
+               clearInputField()
+
+          }
+     }
+
+     function clearInputField(): void {
+          setFormData((prevState: FormDataObj) => {
+               return {
+                    ...prevState,
+                    todo: ''
+               }
+          })
      }
 
      return (
           <div className='flex items-center gap-1 sm:gap-3 bg-fwhite px-5 sm:px-8 py-7 rounded-md shadow-md'>
-               <input name='todo' className="flex-1 focus:outline-0 placeholder:text-greyy" type="text" placeholder="Add new todo..." onChange={handleChange} />
+               <input name='todo' className="flex-1 focus:outline-0 placeholder:text-greyy" type="text" placeholder="Add new todo..." onChange={handleChange} value={formData.todo} />
                <input name='date' type="date" className='w-[6.8rem] cursor-pointer text-sm focus:outline-0' value={formData.date} min={today} onChange={handleChange} />
                <button className="bg-bluey text-fwhite py-2 px-6 rounded-md text-xs font-semibold drop-shadow-xl duration-150 hover:scale-105" onClick={() => addTodo(formData)}>ADD</button>
           </div>
