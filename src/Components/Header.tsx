@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import TodoObj from '../todoModel'
 
 type FormDataObj = {
@@ -41,7 +41,6 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
 
      // store the current date
      const today: string = currentDate(Date.now());
-
      // add todos
      function addTodo(formData: FormDataObj): void {
 
@@ -61,10 +60,12 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
                ))
 
                clearInputField()
+               toggleClassName.current = 'hidden'
           }
 
           else {
                clearInputField()
+               toggleClassName.current = ''
           }
      }
 
@@ -77,12 +78,17 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
           })
      }
 
+     const toggleClassName: React.MutableRefObject<string> = useRef('hidden');
+
      return (
-          <div className='flex items-center gap-1 sm:gap-3 bg-fwhite px-5 sm:px-8 py-7 rounded-md shadow-md'>
-               <input name='todo' className="flex-1 focus:outline-0 placeholder:text-greyy" type="text" placeholder='Add new todo...' onChange={handleChange} value={formData.todo} />
-               <input name='date' type="date" className='w-[6.5rem] cursor-pointer text-sm focus:outline-0' value={formData.date} min={today} onChange={handleChange} />
-               <button className="bg-bluey text-fwhite py-2 px-4 sm:px-6 rounded-md text-xs font-semibold drop-shadow-xl duration-150 hover:scale-105" onClick={() => addTodo(formData)}>ADD</button>
-          </div>
+          <div className='relative'>
+               <div className='flex items-center gap-1 sm:gap-3 bg-fwhite px-5 sm:px-8 py-7 rounded-md shadow-md'>
+                    <input name='todo' className="flex-1 focus:outline-0 placeholder:text-greyy" type="text" placeholder='Add new todo...' onChange={handleChange} value={formData.todo} />
+                    <input name='date' type="date" className='w-[6.5rem] cursor-pointer text-sm focus:outline-0' value={formData.date} min={today} onChange={handleChange} />
+                    <button className="bg-bluey text-fwhite py-2 px-4 sm:px-6 rounded-md text-xs font-semibold drop-shadow-xl duration-150 hover:scale-105" onClick={() => addTodo(formData)}>ADD</button>
+               </div>
+               <p className={`${toggleClassName.current}` + ' absolute text-reddy py-1'}>Todo can't be empty*</p>
+          </div >
      )
 }
 
