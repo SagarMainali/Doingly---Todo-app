@@ -41,6 +41,7 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
 
      // store the current date
      const today: string = currentDate(Date.now());
+
      // add todos
      function addTodo(formData: FormDataObj): void {
 
@@ -78,6 +79,7 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
           })
      }
 
+     // toggle classname hidden without rendering
      const toggleClassName: React.MutableRefObject<string> = useRef('hidden');
 
      return (
