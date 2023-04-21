@@ -16,7 +16,7 @@ function App() {
   }
 
   return (
-    <div className='py-8 px-2 sm:px-20'>
+    <div className='py-8 px-2 md:px-20'>
       <div className="container mx-auto bg-graay py-8 px-4 sm:px-12 rounded-lg flex flex-col gap-10">
         <h1 className='text-center text-4xl text-bluey font-semibold underline'>My Todos</h1>
         <Header setTodo={setTodo} />

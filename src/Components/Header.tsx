@@ -8,10 +8,12 @@ type FormDataObj = {
 
 function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<TodoObj[]>> }) {
 
-     const [formData, setFormData] = useState<FormDataObj>({
-          todo: '',
-          date: currentDate(Date.now()) // can access this function before definition because of hoisting
-     })
+     const [formData, setFormData] = useState<FormDataObj>(
+          {
+               todo: '',
+               date: currentDate(Date.now()) // can access this function before definition because of hoisting
+          }
+     )
 
      // handle the change in inputs (both input and date)
      function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -63,7 +65,6 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
 
           else {
                clearInputField()
-
           }
      }
 
@@ -78,9 +79,9 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
 
      return (
           <div className='flex items-center gap-1 sm:gap-3 bg-fwhite px-5 sm:px-8 py-7 rounded-md shadow-md'>
-               <input name='todo' className="flex-1 focus:outline-0 placeholder:text-greyy" type="text" placeholder="Add new todo..." onChange={handleChange} value={formData.todo} />
-               <input name='date' type="date" className='w-[6.8rem] cursor-pointer text-sm focus:outline-0' value={formData.date} min={today} onChange={handleChange} />
-               <button className="bg-bluey text-fwhite py-2 px-6 rounded-md text-xs font-semibold drop-shadow-xl duration-150 hover:scale-105" onClick={() => addTodo(formData)}>ADD</button>
+               <input name='todo' className="flex-1 focus:outline-0 placeholder:text-greyy" type="text" placeholder='Add new todo...' onChange={handleChange} value={formData.todo} />
+               <input name='date' type="date" className='w-[6.5rem] cursor-pointer text-sm focus:outline-0' value={formData.date} min={today} onChange={handleChange} />
+               <button className="bg-bluey text-fwhite py-2 px-4 sm:px-6 rounded-md text-xs font-semibold drop-shadow-xl duration-150 hover:scale-105" onClick={() => addTodo(formData)}>ADD</button>
           </div>
      )
 }
