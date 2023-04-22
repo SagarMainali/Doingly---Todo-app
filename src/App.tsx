@@ -8,6 +8,7 @@ function App() {
 
   const [todo, setTodo] = useState<TodoObj[]>([])
 
+  // delete todo from the list
   function removeTodo(id: number): void {
     // let temp: TodoObj[] = [...todo]
     // const matchedIndex: number = temp.findIndex((item: TodoObj) => item.id === id)
@@ -16,8 +17,10 @@ function App() {
     setTodo(todo.filter((item: TodoObj) => id !== item.id))
   }
 
+  // update todo
   function updateAndSaveTodo(id: number) {
-    console.log(id)
+    let tempTodo = [...todo]
+    
   }
 
   return (
