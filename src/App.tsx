@@ -8,8 +8,8 @@ function App() {
 
   const [todo, setTodo] = useState<TodoObj[]>([])
 
-  function removeTodo(): void {
-    console.log('removed')
+  function removeTodo(id: number): void {
+    console.log(id)
   }
 
   // function editTodo(id: number) {
