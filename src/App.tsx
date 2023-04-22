@@ -9,7 +9,10 @@ function App() {
   const [todo, setTodo] = useState<TodoObj[]>([])
 
   function removeTodo(id: number): void {
-    console.log(id)
+    let temp: TodoObj[] = [...todo]
+    const matchedIndex: number = temp.findIndex((item: TodoObj) => item.id === id)
+    temp.splice(matchedIndex, 1)
+    setTodo(temp)
   }
 
   // function editTodo(id: number) {
