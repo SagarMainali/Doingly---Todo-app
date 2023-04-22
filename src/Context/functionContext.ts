@@ -1,5 +1,14 @@
 import { createContext } from "react";
 
-const FunctionContext = createContext((id: number) => { })
+type FunctionContextObj = {
+     removeTodo: (id: number) => void,
+     updateAndSaveTodo: (id: number) => void
+}
+
+const FunctionContext = createContext<FunctionContextObj>({
+     removeTodo: () => { },
+     updateAndSaveTodo: () => { }
+}
+)
 
 export default FunctionContext

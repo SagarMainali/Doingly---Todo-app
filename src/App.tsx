@@ -9,18 +9,19 @@ function App() {
   const [todo, setTodo] = useState<TodoObj[]>([])
 
   function removeTodo(id: number): void {
-    let temp: TodoObj[] = [...todo]
-    const matchedIndex: number = temp.findIndex((item: TodoObj) => item.id === id)
-    temp.splice(matchedIndex, 1)
-    setTodo(temp)
+    // let temp: TodoObj[] = [...todo]
+    // const matchedIndex: number = temp.findIndex((item: TodoObj) => item.id === id)
+    // temp.splice(matchedIndex, 1)
+    // setTodo(temp)
+    setTodo(todo.filter((item: TodoObj) => id !== item.id))
   }
 
-  // function editTodo(id: number) {
-
-  // }
+  function updateAndSaveTodo(id: number) {
+    console.log(id)
+  }
 
   return (
-    <FunctionContext.Provider value={removeTodo} >
+    <FunctionContext.Provider value={{ removeTodo, updateAndSaveTodo }} >
       <div className='py-8 px-2 md:px-20'>
         <div className="container mx-auto bg-graay py-8 px-4 sm:px-12 rounded-lg flex flex-col gap-10">
           <h1 className='text-center text-4xl text-bluey font-semibold underline'>My Todos</h1>
