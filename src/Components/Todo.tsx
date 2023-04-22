@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import TodoObj from '../todoModel'
-import { FunctionContext } from '../App'
+import FunctionContext from '../Context/functionContext'
 
 function Todo({ item }: { item: TodoObj }) {
 

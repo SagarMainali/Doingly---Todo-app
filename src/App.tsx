@@ -1,17 +1,12 @@
-import { useState, createContext } from 'react'
+import { useState } from 'react'
 import Header from './Components/Header'
 import TodoContainer from './Components/TodoContainer'
 import TodoObj from './todoModel'
-
-const FunctionContext = createContext(() => { });
-
-export { FunctionContext }
+import FunctionContext from './Context/functionContext'
 
 function App() {
 
   const [todo, setTodo] = useState<TodoObj[]>([])
-
-  // const removeTodo = 'removed'
 
   function removeTodo(): void {
     console.log('removed')
