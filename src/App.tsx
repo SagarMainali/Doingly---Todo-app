@@ -17,14 +17,49 @@ function App() {
     setTodo(todo.filter((item: TodoObj) => id !== item.id))
   }
 
-  // update todo
-  function updateAndSaveTodo(id: number) {
-    let tempTodo = [...todo]
-    
+  // enter edit mode by changing the boolean property of the object
+  function enterEditMode(id: number) {
+    setTodo(
+      (prevState: TodoObj[]) => (
+        prevState.map(
+          (item: TodoObj) => (
+            id === item.id
+
+              ? {
+                ...item,
+                editMode: !item.editMode
+              }
+
+              : item
+          )
+        )
+      )
+    )
   }
 
+  // save edited todo
+  function saveEditedTodo(id: number, editedTodo: string) {
+    setTodo(
+      (prevState: TodoObj[]) => (
+        prevState.map(
+          (item: TodoObj) => (
+            id === item.id
+              ? {
+                ...item,
+                editMode: !item.editMode,
+                todo: editedTodo
+              }
+              : item
+          )
+        )
+      )
+    )
+  }
+
+  console.log(todo)
+
   return (
-    <FunctionContext.Provider value={{ removeTodo, updateAndSaveTodo }} >
+    <FunctionContext.Provider value={{ removeTodo, enterEditMode, saveEditedTodo }} >
       <div className='py-8 px-2 md:px-20'>
         <div className="container mx-auto bg-graay py-8 px-4 sm:px-12 rounded-lg flex flex-col gap-10">
           <h1 className='text-center text-4xl text-bluey font-semibold underline'>My Todos</h1>

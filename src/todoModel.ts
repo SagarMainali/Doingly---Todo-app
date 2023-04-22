@@ -1,7 +1,7 @@
 type TodoObj = {
      id: number,
-     todo: string,
      checked: boolean,
+     todo: string,
      editMode: boolean,
      dueDate: string
 }

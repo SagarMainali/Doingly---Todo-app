@@ -52,8 +52,8 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
                     [
                          {
                               id: Date.now(),
-                              todo: formData.todo,
                               checked: false,
+                              todo: formData.todo,
                               editMode: false,
                               dueDate: formData.date
                          },
