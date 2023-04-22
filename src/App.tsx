@@ -6,7 +6,7 @@ import FunctionContext from './Context/functionContext'
 
 function App() {
 
-  const [todo, setTodo] = useState<TodoObj[]>([])
+  const [todos, setTodos] = useState<TodoObj[]>([])
 
   // delete todo from the list
   function removeTodo(id: number): void {
@@ -14,12 +14,12 @@ function App() {
     // const matchedIndex: number = temp.findIndex((item: TodoObj) => item.id === id)
     // temp.splice(matchedIndex, 1)
     // setTodo(temp)
-    setTodo(todo.filter((item: TodoObj) => id !== item.id))
+    setTodos(todos.filter((item: TodoObj) => id !== item.id))
   }
 
   // enter edit mode by changing the boolean property of the object
   function enterEditMode(id: number) {
-    setTodo(
+    setTodos(
       (prevState: TodoObj[]) => (
         prevState.map(
           (item: TodoObj) => (
@@ -39,16 +39,18 @@ function App() {
 
   // save edited todo
   function saveEditedTodo(id: number, editedTodo: string) {
-    setTodo(
+    setTodos(
       (prevState: TodoObj[]) => (
         prevState.map(
           (item: TodoObj) => (
             id === item.id
+
               ? {
                 ...item,
                 editMode: !item.editMode,
                 todo: editedTodo
               }
+
               : item
           )
         )
@@ -56,16 +58,34 @@ function App() {
     )
   }
 
-  console.log(todo)
+  // changed checked value
+  function changeChecked(id: number) {
+    setTodos(
+      (prevState: TodoObj[]) => (
+        prevState.map(
+          (item: TodoObj) => (
+            id === item.id
+
+              ? {
+                ...item,
+                checked: !item.checked
+              }
+
+              : item
+          )
+        )
+      )
+    )
+  }
 
   return (
-    <FunctionContext.Provider value={{ removeTodo, enterEditMode, saveEditedTodo }} >
+    <FunctionContext.Provider value={{ removeTodo, enterEditMode, saveEditedTodo, changeChecked }} >
       <div className='py-8 px-2 md:px-20'>
         <div className="container mx-auto bg-graay py-8 px-4 sm:px-12 rounded-lg flex flex-col gap-10">
           <h1 className='text-center text-4xl text-bluey font-semibold underline'>My Todos</h1>
-          <Header setTodo={setTodo} />
+          <Header setTodos={setTodos} />
           <hr className='border border-gray-300' />
-          <TodoContainer todo={todo} />
+          <TodoContainer todos={todos} />
         </div >
       </div>
     </FunctionContext.Provider>

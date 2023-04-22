@@ -6,7 +6,7 @@ type FormDataObj = {
      date: string
 }
 
-function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<TodoObj[]>> }) {
+function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<TodoObj[]>> }) {
 
      const [formData, setFormData] = useState<FormDataObj>(
           {
@@ -48,7 +48,7 @@ function Header({ setTodo }: { setTodo: React.Dispatch<React.SetStateAction<Todo
           const todoTrim = formData.todo.trim()
           if (todoTrim.length > 0) {
 
-               setTodo((prevState: TodoObj[]) => (
+               setTodos((prevState: TodoObj[]) => (
                     [
                          {
                               id: Date.now(),

@@ -16,7 +16,7 @@ function Todo({ item }: { item: TodoObj }) {
 
      return (
           <div className='flex p-2 gap-5 items-start'>
-               <input type="checkbox" name='completed' className="cursor-pointer mt-2" checked={item.checked} onChange={() => console.log('changed')} />
+               <input type="checkbox" name='completed' className="cursor-pointer mt-2" checked={item.checked} onChange={() => context.changeChecked(item.id)} />
                {item.editMode
                     ? <textarea onChange={(e) => editedTodo.current = e.target.value} ref={todoInput} className='w-full resize-none bg-transparent scrollbar-hide focus:border-b-2 border-bluey focus:outline-0' defaultValue={item.todo} rows={2} />
                     : <p className='w-full scrollbar-hide'>{item.todo}</p>
