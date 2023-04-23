@@ -83,7 +83,7 @@ function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<To
      useEffect(() => {
           setTimeout(() => {
                setShowMessage(false)
-          }, 1000)
+          }, 1500)
      }, [showMessage])
 
      // toggle classname hidden without rendering
