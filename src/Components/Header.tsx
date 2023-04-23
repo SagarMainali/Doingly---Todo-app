@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { TodoObj } from '../types'
 import { ShowMessage } from '../types'
 
@@ -8,12 +8,12 @@ type FormDataObj = {
 }
 
 type Props = {
+     todos: TodoObj[],
      setTodos: React.Dispatch<React.SetStateAction<TodoObj[]>>,
-     showMessage: ShowMessage,
      setShowMessage: React.Dispatch<React.SetStateAction<ShowMessage>>
 }
 
-function Header({ setTodos, showMessage, setShowMessage }: Props) {
+function Header({ todos, setTodos, setShowMessage }: Props) {
 
      const [formData, setFormData] = useState<FormDataObj>(
           {
@@ -24,6 +24,20 @@ function Header({ setTodos, showMessage, setShowMessage }: Props) {
 
      // handle the change in inputs (both input and date)
      function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
+
+          if (todos.length >= 1) {
+               const todoOnEditMode = todos.findIndex((item: TodoObj) => (
+                    item.onEditMode
+               ))
+               console.log(todoOnEditMode)
+               todoOnEditMode >= 0 && setShowMessage((prevState: ShowMessage) => (
+                    {
+                         ...prevState,
+                         showOnEditMode: true
+                    }
+               ))
+          }
+
           const { name, value } = event.target
           setFormData(
                (prevState: FormDataObj) => {
