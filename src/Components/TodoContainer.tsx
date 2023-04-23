@@ -1,5 +1,5 @@
 import Todo from './Todo'
-import TodoObj from '../todoModel'
+import {TodoObj} from '../types'
 import { useState } from 'react'
 
 // type Props = {

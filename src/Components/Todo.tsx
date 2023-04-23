@@ -1,5 +1,5 @@
 import { useEffect, useContext, useRef } from 'react'
-import TodoObj from '../todoModel'
+import {TodoObj} from '../types'
 import FunctionContext from '../Context/functionContext'
 
 function Todo({ item }: { item: TodoObj }) {

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import TodoObj from '../todoModel'
+import {TodoObj} from '../types'
 
 type FormDataObj = {
      todo: string,

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import Header from './Components/Header'
 import TodoContainer from './Components/TodoContainer'
-import TodoObj from './todoModel'
+import { TodoObj } from './types'
+import { ShowMessage } from './types'
 import FunctionContext from './Context/functionContext'
 
 function App() {
@@ -15,7 +16,12 @@ function App() {
     // temp.splice(matchedIndex, 1)
     // setTodo(temp)
     setTodos(todos.filter((item: TodoObj) => id !== item.id))
-    setShowTodoDeleted(true)
+    setShowMessage((prevState: ShowMessage) => (
+      {
+        ...prevState,
+        showTodoDeleted: true
+      }
+    ))
   }
 
   // enter edit mode by changing the boolean property of the object
@@ -57,7 +63,12 @@ function App() {
         )
       )
     )
-    setShowTodoEdited(true)
+    setShowMessage((prevState: ShowMessage) => (
+      {
+        ...prevState,
+        showTodoEdited: true
+      }
+    ))
   }
 
   // changed checked value
@@ -80,31 +91,37 @@ function App() {
     )
   }
 
-  // for todo deletion
-  const [showTodoDeleted, setShowTodoDeleted] = useState<boolean>(false)
+  const [showMessage, setShowMessage] = useState<ShowMessage>({
+    showTodoDeleted: false,
+    showTodoEdited: false
+  })
 
   useEffect(() => {
-    if (showTodoDeleted) {
-      let timer = setTimeout(() => {
-        setShowTodoDeleted(false)
-      }, 1500)
-
-      return () => clearTimeout(timer)
+    if (showMessage.showTodoDeleted || showMessage.showTodoEdited) {
+      if (showMessage.showTodoDeleted) {
+        let timer = setTimeout(() => {
+          setShowMessage((prevState: ShowMessage) => (
+            {
+              ...prevState,
+              showTodoDeleted: false
+            }
+          ))
+        }, 1500)
+        return () => clearTimeout(timer)
+      }
+      else {
+        let timer = setTimeout(() => {
+          setShowMessage((prevState: ShowMessage) => (
+            {
+              ...prevState,
+              showTodoEdited: false
+            }
+          ))
+        }, 1500)
+        return () => clearTimeout(timer)
+      }
     }
-  }, [showTodoDeleted])
-
-  // for todo edit
-  const [showTodoEdited, setShowTodoEdited] = useState<boolean>(false)
-
-  useEffect(() => {
-    if (showTodoEdited) {
-      let timer = setTimeout(() => {
-        setShowTodoEdited(false)
-      }, 1500)
-
-      return () => clearTimeout(timer)
-    }
-  }, [showTodoEdited])
+  }, [showMessage])
 
   return (
     <FunctionContext.Provider value={{ removeTodo, enterEditMode, saveEditedTodo, changeChecked }} >
@@ -115,8 +132,8 @@ function App() {
           <hr className='border border-gray-300' />
           <TodoContainer todos={todos} />
         </div >
-        {showTodoDeleted && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"Todo deleted"</div>}
-        {showTodoEdited && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"Todo edited"</div>}
+        {showMessage.showTodoDeleted && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"Todo deleted"</div>}
+        {showMessage.showTodoEdited && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"Todo edited"</div>}
       </div>
     </FunctionContext.Provider>
   )
