@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import TodoObj from '../todoModel'
 
 type FormDataObj = {
@@ -42,9 +42,10 @@ function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<To
      // store the current date
      const today: string = currentDate(Date.now());
 
+     const [showMessage, setShowMessage] = useState<boolean>(false)
+
      // add todos
      function addTodo(formData: FormDataObj): void {
-
           const todoTrim = formData.todo.trim()
           if (todoTrim.length > 0) {
 
@@ -60,11 +61,10 @@ function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<To
                          ...prevState
                     ]
                ))
-
                clearInputField()
+               setShowMessage(true)
                toggleClassName.current = 'hidden'
           }
-
           else {
                clearInputField()
                toggleClassName.current = ''
@@ -80,8 +80,14 @@ function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<To
           })
      }
 
+     useEffect(() => {
+          setTimeout(() => {
+               setShowMessage(false)
+          }, 1000)
+     }, [showMessage])
+
      // toggle classname hidden without rendering
-     const toggleClassName: React.MutableRefObject<string> = useRef('hidden');
+     const toggleClassName: React.MutableRefObject<string> = useRef('hidden')
 
      return (
           <div className='relative'>
@@ -91,6 +97,7 @@ function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<To
                     <button className="bg-bluey text-fwhite py-2 px-4 sm:px-6 rounded-md text-xs font-semibold drop-shadow-xl duration-150 hover:scale-105" onClick={() => addTodo(formData)}>ADD</button>
                </div>
                <p className={`${toggleClassName.current}` + ' absolute text-reddy py-1'}>Todo can't be empty*</p>
+               {showMessage && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"New todo added"</div>}
           </div >
      )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Header from './Components/Header'
 import TodoContainer from './Components/TodoContainer'
 import TodoObj from './todoModel'
@@ -82,7 +82,7 @@ function App() {
     <FunctionContext.Provider value={{ removeTodo, enterEditMode, saveEditedTodo, changeChecked }} >
       <div className='py-8 px-2 md:px-20'>
         <div className="container mx-auto bg-graay py-8 px-4 sm:px-12 rounded-lg flex flex-col gap-10">
-          <h1 className='text-center text-4xl text-bluey font-semibold underline'>My Todos</h1>
+          <h1 className='text-center text-[2.2rem] text-bluey font-semibold underline'>My Todos</h1>
           <Header setTodos={setTodos} />
           <hr className='border border-gray-300' />
           <TodoContainer todos={todos} />
@@ -93,3 +93,5 @@ function App() {
 }
 
 export default App
+
+// {showMessage && <div className="text-sm text-fwhite font-semibold bg-bluey px-2 h-[1.3rem] rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"New todo added"</div>}
