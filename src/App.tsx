@@ -15,7 +15,7 @@ function App() {
     // temp.splice(matchedIndex, 1)
     // setTodo(temp)
     setTodos(todos.filter((item: TodoObj) => id !== item.id))
-    setShowMessage(true)
+    setShowTodoDeleted(true)
   }
 
   // enter edit mode by changing the boolean property of the object
@@ -57,6 +57,7 @@ function App() {
         )
       )
     )
+    setShowTodoEdited(true)
   }
 
   // changed checked value
@@ -79,17 +80,31 @@ function App() {
     )
   }
 
-  const [showMessage, setShowMessage] = useState<boolean>(false)
+  // for todo deletion
+  const [showTodoDeleted, setShowTodoDeleted] = useState<boolean>(false)
 
   useEffect(() => {
-    if (showMessage) {
+    if (showTodoDeleted) {
       let timer = setTimeout(() => {
-        setShowMessage(false)
+        setShowTodoDeleted(false)
       }, 1500)
 
       return () => clearTimeout(timer)
     }
-  }, [showMessage])
+  }, [showTodoDeleted])
+
+  // for todo edit
+  const [showTodoEdited, setShowTodoEdited] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (showTodoEdited) {
+      let timer = setTimeout(() => {
+        setShowTodoEdited(false)
+      }, 1500)
+
+      return () => clearTimeout(timer)
+    }
+  }, [showTodoEdited])
 
   return (
     <FunctionContext.Provider value={{ removeTodo, enterEditMode, saveEditedTodo, changeChecked }} >
@@ -100,7 +115,8 @@ function App() {
           <hr className='border border-gray-300' />
           <TodoContainer todos={todos} />
         </div >
-        {showMessage && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"Todo deleted"</div>}
+        {showTodoDeleted && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"Todo deleted"</div>}
+        {showTodoEdited && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"Todo edited"</div>}
       </div>
     </FunctionContext.Provider>
   )
