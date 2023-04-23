@@ -81,9 +81,13 @@ function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<To
      }
 
      useEffect(() => {
-          setTimeout(() => {
-               setShowMessage(false)
-          }, 1500)
+          if (showMessage) {
+               let timer = setTimeout(() => {
+                    setShowMessage(false)
+               }, 1500)
+
+               return () => clearTimeout(timer)
+          }
      }, [showMessage])
 
      // toggle classname hidden without rendering
@@ -97,7 +101,7 @@ function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<To
                     <button className="bg-bluey text-fwhite py-2 px-4 sm:px-6 rounded-md text-xs font-semibold drop-shadow-xl duration-150 hover:scale-105" onClick={() => addTodo(formData)}>ADD</button>
                </div>
                <p className={`${toggleClassName.current}` + ' absolute text-reddy py-1'}>Todo can't be empty*</p>
-               {showMessage && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"New todo added"</div>}
+               {showMessage && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-8 -translate-x-2/4">"New todo added"</div>}
           </div >
      )
 }

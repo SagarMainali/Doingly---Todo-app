@@ -15,6 +15,7 @@ function App() {
     // temp.splice(matchedIndex, 1)
     // setTodo(temp)
     setTodos(todos.filter((item: TodoObj) => id !== item.id))
+    setShowMessage(true)
   }
 
   // enter edit mode by changing the boolean property of the object
@@ -78,6 +79,18 @@ function App() {
     )
   }
 
+  const [showMessage, setShowMessage] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (showMessage) {
+      let timer = setTimeout(() => {
+        setShowMessage(false)
+      }, 1500)
+
+      return () => clearTimeout(timer)
+    }
+  }, [showMessage])
+
   return (
     <FunctionContext.Provider value={{ removeTodo, enterEditMode, saveEditedTodo, changeChecked }} >
       <div className='py-8 px-2 md:px-20'>
@@ -87,6 +100,7 @@ function App() {
           <hr className='border border-gray-300' />
           <TodoContainer todos={todos} />
         </div >
+        {showMessage && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"Todo deleted"</div>}
       </div>
     </FunctionContext.Provider>
   )
@@ -94,4 +108,3 @@ function App() {
 
 export default App
 
-// {showMessage && <div className="text-sm text-fwhite font-semibold bg-bluey px-2 h-[1.3rem] rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"New todo added"</div>}
