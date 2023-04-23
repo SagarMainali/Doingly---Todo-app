@@ -24,29 +24,28 @@ function Header({ todos, setTodos, setShowMessage }: Props) {
 
      // handle the change in inputs (both input and date)
      function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
-
-          if (todos.length >= 1) {
-               const todoOnEditMode = todos.findIndex((item: TodoObj) => (
-                    item.onEditMode
-               ))
-               console.log(todoOnEditMode)
-               todoOnEditMode >= 0 && setShowMessage((prevState: ShowMessage) => (
-                    {
-                         ...prevState,
-                         showOnEditMode: true
-                    }
-               ))
-          }
-
-          const { name, value } = event.target
-          setFormData(
-               (prevState: FormDataObj) => {
-                    return {
-                         ...prevState,
-                         [name]: value
-                    }
+          const todoOnEditMode = todos.findIndex((item: TodoObj) => (
+               item.onEditMode
+          ))
+          if (todoOnEditMode >= 0) {
+               setShowMessage((prevState: ShowMessage) => (
+               {
+                    ...prevState,
+                    showOnEditMode: true
                }
-          )
+          ))
+          }
+          else {
+               const { name, value } = event.target
+               setFormData(
+                    (prevState: FormDataObj) => {
+                         return {
+                              ...prevState,
+                              [name]: value
+                         }
+                    }
+               )
+          }
      }
 
      // get the current date from date.now() which is in ms
