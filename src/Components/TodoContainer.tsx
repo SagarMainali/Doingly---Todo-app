@@ -26,14 +26,25 @@ function TodoContainer({ todos }: { todos: TodoObj[] }) {
 
      return (
           <div className='flex flex-col gap-2'>
-               <fieldset className='px-2 mb-4'>
-                    <label>Filter:</label>
-                    <select name="filter" className='ms-2 ps-1 pe-14 py-1 cursor-pointer rounded-md focus:outline-0' value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
-                         <option value="all">All</option>
-                         <option value="completed">Completed</option>
-                         <option value="todos">Todos</option>
-                    </select>
-               </fieldset>
+               <div className='flex justify-between px-2'>
+                    <fieldset className='mb-6'>
+                         <label>Filter:</label>
+                         <select name="filter" className='ms-2 ps-1 pe-14 py-1 cursor-pointer rounded-md focus:outline-0' value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
+                              <option value="all">All</option>
+                              <option value="completed">Completed</option>
+                              <option value="todos">Todos</option>
+                         </select>
+                    </fieldset>
+                    <h2>Found "
+                         {selectedOption === 'all'
+                              ? todos.length
+                              : selectedOption === 'completed'
+                                   ? completedTodos.length
+                                   : incompletedTodos.length
+                         }
+                         "
+                    </h2>
+               </div>
                {selectedOption === 'all' && todos.length >= 1
                     ? todos.map((item: TodoObj) => <Todo key={item.id} item={item} />)
                     : selectedOption === 'all' && todos.length < 1
