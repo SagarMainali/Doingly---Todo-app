@@ -1,5 +1,5 @@
 import { useEffect, useContext, useRef } from 'react'
-import {TodoObj} from '../types'
+import { TodoObj } from '../types'
 import FunctionContext from '../Context/functionContext'
 
 function Todo({ item }: { item: TodoObj }) {
@@ -8,21 +8,21 @@ function Todo({ item }: { item: TodoObj }) {
 
      const todoInput = useRef<HTMLTextAreaElement>(null)
 
-     const editedTodo = useRef<string>('')
+     const editedTodo = useRef<string>(item.todo)
 
      useEffect(() => {
-          (item.editMode && todoInput.current) && todoInput.current.focus()
-     }, [item.editMode])
+          (item.onEditMode && todoInput.current) && todoInput.current.focus()
+     }, [item.onEditMode])
 
      return (
           <div className='flex p-2 gap-5 items-start'>
                <input type="checkbox" name='completed' className="cursor-pointer mt-2" checked={item.checked} onChange={() => context.changeChecked(item.id)} />
-               {item.editMode
+               {item.onEditMode
                     ? <textarea onChange={(e) => editedTodo.current = e.target.value} ref={todoInput} className='w-full resize-none bg-transparent scrollbar-hide focus:border-b-2 border-bluey focus:outline-0' defaultValue={item.todo} rows={2} />
                     : <p className='w-full scrollbar-hide'>{item.todo}</p>
                }
                <div className="flex flex-wrap justify-end gap-x-4 gap-y-1">
-                    {item.editMode
+                    {item.onEditMode
                          // save icon
                          ? <svg onClick={() => context.saveEditedTodo(item.id, editedTodo.current)} className="cursor-pointer" height='20' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" fill='#54B4D3' /></svg>
                          // edit icon

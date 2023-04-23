@@ -1,12 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react'
-import {TodoObj} from '../types'
+import { TodoObj } from '../types'
+import { ShowMessageHeader } from '../types'
 
 type FormDataObj = {
      todo: string,
      date: string
 }
 
-function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<TodoObj[]>> }) {
+type Props = {
+     todos: TodoObj[],
+     setTodos: React.Dispatch<React.SetStateAction<TodoObj[]>>
+}
+
+function Header({ todos, setTodos }: Props) {
 
      const [formData, setFormData] = useState<FormDataObj>(
           {
@@ -15,8 +21,26 @@ function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<To
           }
      )
 
+     const [showMessage, setShowMessage] = useState<ShowMessageHeader>({
+          showTodoAdded: false,
+          onEditMode: false
+     })
+
      // handle the change in inputs (both input and date)
      function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
+
+          if (todos.length >= 1) {
+               const todosOnEditMode: number = todos.findIndex((item: TodoObj) => (
+                    item.onEditMode
+               ))
+               todosOnEditMode && setShowMessage((prevState: ShowMessageHeader) => (
+                    {
+                         ...prevState,
+                         onEditMode: true
+                    }
+               ))
+          }
+
           const { name, value } = event.target
           setFormData(
                (prevState: FormDataObj) => {
@@ -42,8 +66,6 @@ function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<To
      // store the current date
      const today: string = currentDate(Date.now());
 
-     const [showMessage, setShowMessage] = useState<boolean>(false)
-
      // add todos
      function addTodo(formData: FormDataObj): void {
           const todoTrim = formData.todo.trim()
@@ -55,14 +77,14 @@ function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<To
                               id: Date.now(),
                               checked: false,
                               todo: formData.todo,
-                              editMode: false,
+                              onEditMode: false,
                               dueDate: formData.date
                          },
                          ...prevState
                     ]
                ))
                clearInputField()
-               setShowMessage(true)
+               // setShowMessage(true)
                toggleClassName.current = 'hidden'
           }
           else {
@@ -83,7 +105,7 @@ function Header({ setTodos }: { setTodos: React.Dispatch<React.SetStateAction<To
      useEffect(() => {
           if (showMessage) {
                let timer = setTimeout(() => {
-                    setShowMessage(false)
+                    // setShowMessage(false)
                }, 1500)
 
                return () => clearTimeout(timer)

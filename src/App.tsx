@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Header from './Components/Header'
 import TodoContainer from './Components/TodoContainer'
 import { TodoObj } from './types'
-import { ShowMessage } from './types'
+import { ShowMessageApp } from './types'
 import FunctionContext from './Context/functionContext'
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
     // temp.splice(matchedIndex, 1)
     // setTodo(temp)
     setTodos(todos.filter((item: TodoObj) => id !== item.id))
-    setShowMessage((prevState: ShowMessage) => (
+    setShowMessage((prevState: ShowMessageApp) => (
       {
         ...prevState,
         showTodoDeleted: true
@@ -25,7 +25,7 @@ function App() {
   }
 
   // enter edit mode by changing the boolean property of the object
-  function enterEditMode(id: number) {
+  function enterEditMode(id: number): void {
     setTodos(
       (prevState: TodoObj[]) => (
         prevState.map(
@@ -34,7 +34,7 @@ function App() {
 
               ? {
                 ...item,
-                editMode: !item.editMode
+                onEditMode: !item.onEditMode
               }
 
               : item
@@ -45,7 +45,7 @@ function App() {
   }
 
   // save edited todo
-  function saveEditedTodo(id: number, editedTodo: string) {
+  function saveEditedTodo(id: number, editedTodo: string): void {
     setTodos(
       (prevState: TodoObj[]) => (
         prevState.map(
@@ -54,7 +54,7 @@ function App() {
 
               ? {
                 ...item,
-                editMode: !item.editMode,
+                onEditMode: !item.onEditMode,
                 todo: editedTodo
               }
 
@@ -63,7 +63,7 @@ function App() {
         )
       )
     )
-    setShowMessage((prevState: ShowMessage) => (
+    setShowMessage((prevState: ShowMessageApp) => (
       {
         ...prevState,
         showTodoEdited: true
@@ -72,7 +72,7 @@ function App() {
   }
 
   // changed checked value
-  function changeChecked(id: number) {
+  function changeChecked(id: number): void {
     setTodos(
       (prevState: TodoObj[]) => (
         prevState.map(
@@ -91,7 +91,7 @@ function App() {
     )
   }
 
-  const [showMessage, setShowMessage] = useState<ShowMessage>({
+  const [showMessage, setShowMessage] = useState<ShowMessageApp>({
     showTodoDeleted: false,
     showTodoEdited: false
   })
@@ -100,7 +100,7 @@ function App() {
     if (showMessage.showTodoDeleted || showMessage.showTodoEdited) {
       if (showMessage.showTodoDeleted) {
         let timer = setTimeout(() => {
-          setShowMessage((prevState: ShowMessage) => (
+          setShowMessage((prevState: ShowMessageApp) => (
             {
               ...prevState,
               showTodoDeleted: false
@@ -111,7 +111,7 @@ function App() {
       }
       else {
         let timer = setTimeout(() => {
-          setShowMessage((prevState: ShowMessage) => (
+          setShowMessage((prevState: ShowMessageApp) => (
             {
               ...prevState,
               showTodoEdited: false
@@ -128,7 +128,7 @@ function App() {
       <div className='py-8 px-2 md:px-20'>
         <div className="container mx-auto bg-graay py-8 px-4 sm:px-12 rounded-lg flex flex-col gap-10">
           <h1 className='text-center text-[2.2rem] text-bluey font-semibold underline'>My Todos</h1>
-          <Header setTodos={setTodos} />
+          <Header todos={todos} setTodos={setTodos} />
           <hr className='border border-gray-300' />
           <TodoContainer todos={todos} />
         </div >
