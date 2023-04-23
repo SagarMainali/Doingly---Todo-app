@@ -26,7 +26,7 @@ function TodoContainer({ todos }: { todos: TodoObj[] }) {
 
      return (
           <div className='flex flex-col gap-2'>
-               <div className='flex justify-between px-2 mb-6'>
+               <div className='flex justify-between mb-6 relative'>
                     <fieldset>
                          <label>Filter:</label>
                          <select name="filter" className='ms-2 ps-1 pe-14 py-1 cursor-pointer rounded-md focus:outline-0' value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
@@ -35,6 +35,7 @@ function TodoContainer({ todos }: { todos: TodoObj[] }) {
                               <option value="todos">Todos</option>
                          </select>
                     </fieldset>
+                    {/* <div className="text-sm text-gray-600 font-semibold bg-slate-300 px-2 h-[1.3rem] rounded-md absolute left-2/4 top-2/4 -translate-x-2/4">"New todo added"</div> */}
                     <h2>Found "
                          {selectedOption === 'all'
                               ? todos.length
