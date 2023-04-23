@@ -6,12 +6,9 @@ export type TodoObj = {
      dueDate: string
 }
 
-export type ShowMessageApp = {
-     showTodoDeleted: boolean,
-     showTodoEdited: boolean
-}
-
-export type ShowMessageHeader = {
+export type ShowMessage = {
      showTodoAdded: boolean,
-     onEditMode: boolean
+     showTodoDeleted: boolean,
+     showTodoEdited: boolean,
+     showOnEditMode: boolean
 }

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { TodoObj } from '../types'
-import { ShowMessageHeader } from '../types'
+import { ShowMessage } from '../types'
 
 type FormDataObj = {
      todo: string,
@@ -8,11 +8,12 @@ type FormDataObj = {
 }
 
 type Props = {
-     todos: TodoObj[],
-     setTodos: React.Dispatch<React.SetStateAction<TodoObj[]>>
+     setTodos: React.Dispatch<React.SetStateAction<TodoObj[]>>,
+     showMessage: ShowMessage,
+     setShowMessage: React.Dispatch<React.SetStateAction<ShowMessage>>
 }
 
-function Header({ todos, setTodos }: Props) {
+function Header({ setTodos, showMessage, setShowMessage }: Props) {
 
      const [formData, setFormData] = useState<FormDataObj>(
           {
@@ -21,26 +22,8 @@ function Header({ todos, setTodos }: Props) {
           }
      )
 
-     const [showMessage, setShowMessage] = useState<ShowMessageHeader>({
-          showTodoAdded: false,
-          onEditMode: false
-     })
-
      // handle the change in inputs (both input and date)
      function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
-
-          if (todos.length >= 1) {
-               const todosOnEditMode: number = todos.findIndex((item: TodoObj) => (
-                    item.onEditMode
-               ))
-               todosOnEditMode && setShowMessage((prevState: ShowMessageHeader) => (
-                    {
-                         ...prevState,
-                         onEditMode: true
-                    }
-               ))
-          }
-
           const { name, value } = event.target
           setFormData(
                (prevState: FormDataObj) => {
@@ -84,7 +67,12 @@ function Header({ todos, setTodos }: Props) {
                     ]
                ))
                clearInputField()
-               // setShowMessage(true)
+               setShowMessage((prevState: ShowMessage) => (
+                    {
+                         ...prevState,
+                         showTodoAdded: true
+                    }
+               ))
                toggleClassName.current = 'hidden'
           }
           else {
@@ -102,16 +90,6 @@ function Header({ todos, setTodos }: Props) {
           })
      }
 
-     useEffect(() => {
-          if (showMessage) {
-               let timer = setTimeout(() => {
-                    // setShowMessage(false)
-               }, 1500)
-
-               return () => clearTimeout(timer)
-          }
-     }, [showMessage])
-
      // toggle classname hidden without rendering
      const toggleClassName: React.MutableRefObject<string> = useRef('hidden')
 
@@ -123,7 +101,6 @@ function Header({ todos, setTodos }: Props) {
                     <button className="bg-bluey text-fwhite py-2 px-4 sm:px-6 rounded-md text-xs font-semibold drop-shadow-xl duration-150 hover:scale-105" onClick={() => addTodo(formData)}>ADD</button>
                </div>
                <p className={`${toggleClassName.current}` + ' absolute text-reddy py-1'}>Todo can't be empty*</p>
-               {showMessage && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-8 -translate-x-2/4">"New todo added"</div>}
           </div >
      )
 }
