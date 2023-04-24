@@ -7,7 +7,7 @@ import FunctionContext from './Context/functionContext'
 
 function App() {
 
-  const [todos, setTodos] = useState<TodoObj[]>([])
+  const [todos, setTodos] = useState<TodoObj[]>(JSON.parse(localStorage.getItem('allTodos')!) || [])
 
   // delete todo from the list
   function removeTodo(id: number): void {
@@ -90,6 +90,11 @@ function App() {
       )
     )
   }
+
+  useEffect(() => {
+    localStorage.setItem('allTodos', JSON.stringify(todos))
+    console.log(JSON.stringify(todos))
+  }, [todos])
 
   const [showMessage, setShowMessage] = useState<ShowMessage>({
     showTodoAdded: false,
