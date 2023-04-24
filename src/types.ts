@@ -1,3 +1,4 @@
+// for each todo
 export type TodoObj = {
      id: number,
      checked: boolean,
@@ -6,6 +7,7 @@ export type TodoObj = {
      dueDate: string
 }
 
+// for showing messages on user interaction like todo add, remove, edit and so on
 export type ShowMessage = {
      showTodoAdded: boolean,
      showTodoDeleted: boolean,

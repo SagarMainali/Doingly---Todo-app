@@ -2,19 +2,23 @@ import React, { useState, useRef } from 'react'
 import { TodoObj } from '../types'
 import { ShowMessage } from '../types'
 
+// for todo and date set from user inputs
 type FormDataObj = {
      todo: string,
      date: string
 }
 
+// type of expected argument
 type Props = {
      todos: TodoObj[],
      setTodos: React.Dispatch<React.SetStateAction<TodoObj[]>>,
      setShowMessage: React.Dispatch<React.SetStateAction<ShowMessage>>
 }
 
+// Header Component
 function Header({ todos, setTodos, setShowMessage }: Props) {
 
+     // save user inputs
      const [formData, setFormData] = useState<FormDataObj>(
           {
                todo: '',
@@ -24,9 +28,12 @@ function Header({ todos, setTodos, setShowMessage }: Props) {
 
      // handle the change in inputs (both input and date)
      function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
+          // verify if any of the todo is on editmode
+          // if yes todoOnEditMode will be returned the index of it
           const todoOnEditMode: number = todos.findIndex((item: TodoObj) => (
                item.onEditMode
           ))
+          // show message if any todo is on editmode
           if (todoOnEditMode >= 0) {
                setShowMessage((prevState: ShowMessage) => (
                     {
@@ -35,6 +42,7 @@ function Header({ todos, setTodos, setShowMessage }: Props) {
                     }
                ))
           }
+          // only accept inputs if no todo is on editmode
           else {
                const { name, value } = event.target
                setFormData(
@@ -64,6 +72,7 @@ function Header({ todos, setTodos, setShowMessage }: Props) {
 
      // add todos
      function addTodo(formData: FormDataObj): void {
+          // remove space to avoid empty string submission
           const todoTrim = formData.todo.trim()
           if (todoTrim.length > 0) {
 
@@ -94,6 +103,8 @@ function Header({ todos, setTodos, setShowMessage }: Props) {
           }
      }
 
+     // clear inputfield after user adds todo
+     // this function is called on addTodo function
      function clearInputField(): void {
           setFormData((prevState: FormDataObj) => {
                return {
@@ -113,6 +124,7 @@ function Header({ todos, setTodos, setShowMessage }: Props) {
                     <input name='date' type="date" className='w-[6.5rem] cursor-pointer text-sm focus:outline-0' value={formData.date} min={today} onChange={handleChange} />
                     <button className="bg-bluey text-fwhite py-2 px-4 sm:px-6 rounded-md text-xs font-semibold drop-shadow-xl duration-150 hover:scale-105" onClick={() => addTodo(formData)}>ADD</button>
                </div>
+               {/* show message only if user tries to submit empty input */}
                <p className={`${toggleClassName.current}` + ' absolute text-reddy py-1'}>Todo can't be empty*</p>
           </div >
      )

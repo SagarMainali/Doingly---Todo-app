@@ -5,16 +5,20 @@ import { TodoObj } from './types'
 import { ShowMessage } from './types'
 import FunctionContext from './Context/functionContext'
 
+// App Component
 function App() {
 
+  // when the app first renders, the data from localstorage will be set to 'todos', if it is null then '[]' is set
   const [todos, setTodos] = useState<TodoObj[]>(JSON.parse(localStorage.getItem('allTodos')!) || [])
 
   // delete todo from the list
   function removeTodo(id: number): void {
+    // aternative way
     // let temp: TodoObj[] = [...todo]
     // const matchedIndex: number = temp.findIndex((item: TodoObj) => item.id === id)
     // temp.splice(matchedIndex, 1)
     // setTodo(temp)
+
     setTodos(todos.filter((item: TodoObj) => id !== item.id))
     setShowMessage((prevState: ShowMessage) => (
       {
@@ -71,7 +75,7 @@ function App() {
     ))
   }
 
-  // changed checked value
+  // save changed checked value
   function changeChecked(id: number): void {
     setTodos(
       (prevState: TodoObj[]) => (
@@ -91,10 +95,7 @@ function App() {
     )
   }
 
-  useEffect(() => {
-    localStorage.setItem('allTodos', JSON.stringify(todos))
-  }, [todos])
-
+  // state that determines whether to showMessage or not on user interactions(add, remove, edit)
   const [showMessage, setShowMessage] = useState<ShowMessage>({
     showTodoAdded: false,
     showTodoDeleted: false,
@@ -102,6 +103,7 @@ function App() {
     showOnEditMode: false
   })
 
+  // if any showMessage is on, then turn if off after specified delay
   useEffect(() => {
     const delay: number = 1300
     if (showMessage.showTodoAdded || showMessage.showTodoDeleted || showMessage.showTodoEdited || showMessage.showOnEditMode) {
@@ -153,6 +155,11 @@ function App() {
     }
   }, [showMessage])
 
+  // save todos to localstorage after everything renders
+  useEffect(() => {
+    localStorage.setItem('allTodos', JSON.stringify(todos))
+  }, [todos])
+
   return (
     <FunctionContext.Provider value={{ removeTodo, enterEditMode, saveEditedTodo, changeChecked }} >
       <div className='py-8 px-2 md:px-20'>
@@ -162,6 +169,7 @@ function App() {
           <hr className='border border-gray-300' />
           <TodoContainer todos={todos} setShowMessage={setShowMessage} />
         </div >
+        {/* show message based on their own state of boolean type */}
         {showMessage.showTodoAdded && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-8 -translate-x-2/4">"New todo added"</div>}
         {showMessage.showTodoDeleted && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"Todo deleted"</div>}
         {showMessage.showTodoEdited && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"Todo edited"</div>}

@@ -2,33 +2,42 @@ import Todo from './Todo'
 import { ShowMessage, TodoObj } from '../types'
 import { useState } from 'react'
 
+// type of expected argument
 type Props = {
      todos: TodoObj[],
      setShowMessage: React.Dispatch<React.SetStateAction<ShowMessage>>
 }
+
+// TodoContainer Component
+// alternative:
 // function TodoContainer(props: Props) {
 function TodoContainer({ todos, setShowMessage }: Props) {
 
+     // store the selected option from user input
      const [selectedOption, setSelectedOption] = useState<string>('all')
 
-     // get completed todos only
+     // get completed todos only - based on checked value
      const completedTodos = todos.filter(
           (item: TodoObj) => (
                item.checked && item
           )
      )
 
-     // get incompleted todos
+     // get incompleted todos - based on checked value
      const incompletedTodos = todos.filter(
           (item: TodoObj) => (
                !item.checked && item
           )
      )
 
+     // for change in option selected
      function handleChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+          // verify if any of the todo is on editmode
+          // if yes todoOnEditMode will be returned the index of it
           const todosOnEditMode: number = todos.findIndex((item: TodoObj) => (
                item.onEditMode
           ))
+          // show message if any todo is on editmode
           if (todosOnEditMode >= 0) {
                setShowMessage((prevState: ShowMessage) => (
                     {
@@ -37,6 +46,7 @@ function TodoContainer({ todos, setShowMessage }: Props) {
                     }
                ))
           }
+          // only accept change if no todo is on editmode
           else {
                setSelectedOption(event.target.value)
           }
@@ -63,6 +73,7 @@ function TodoContainer({ todos, setShowMessage }: Props) {
                          "
                     </h2>
                </div>
+               {/* to display message or perform mapping to render todos based on selectedOption */}
                {selectedOption === 'all' && todos.length >= 1
                     ? todos.map((item: TodoObj) => <Todo key={item.id} item={item} />)
                     : selectedOption === 'all' && todos.length < 1

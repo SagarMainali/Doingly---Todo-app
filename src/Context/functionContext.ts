@@ -1,3 +1,5 @@
+// this context holds all the function to be passed directly to nested child component
+
 import { createContext } from "react";
 
 type FunctionContextObj = {
