@@ -29,11 +29,11 @@ function Header({ todos, setTodos, setShowMessage }: Props) {
           ))
           if (todoOnEditMode >= 0) {
                setShowMessage((prevState: ShowMessage) => (
-               {
-                    ...prevState,
-                    showOnEditMode: true
-               }
-          ))
+                    {
+                         ...prevState,
+                         showOnEditMode: true
+                    }
+               ))
           }
           else {
                const { name, value } = event.target
