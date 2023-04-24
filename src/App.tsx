@@ -93,7 +93,6 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('allTodos', JSON.stringify(todos))
-    console.log(JSON.stringify(todos))
   }, [todos])
 
   const [showMessage, setShowMessage] = useState<ShowMessage>({
