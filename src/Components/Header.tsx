@@ -24,7 +24,7 @@ function Header({ todos, setTodos, setShowMessage }: Props) {
 
      // handle the change in inputs (both input and date)
      function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
-          const todoOnEditMode = todos.findIndex((item: TodoObj) => (
+          const todoOnEditMode: number = todos.findIndex((item: TodoObj) => (
                item.onEditMode
           ))
           if (todoOnEditMode >= 0) {

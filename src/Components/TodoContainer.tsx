@@ -1,12 +1,13 @@
 import Todo from './Todo'
-import {TodoObj} from '../types'
+import { ShowMessage, TodoObj } from '../types'
 import { useState } from 'react'
 
-// type Props = {
-//      todo: TodoObj[]
-// }
+type Props = {
+     todos: TodoObj[],
+     setShowMessage: React.Dispatch<React.SetStateAction<ShowMessage>>
+}
 // function TodoContainer(props: Props) {
-function TodoContainer({ todos }: { todos: TodoObj[] }) {
+function TodoContainer({ todos, setShowMessage }: Props) {
 
      const [selectedOption, setSelectedOption] = useState<string>('all')
 
@@ -24,12 +25,29 @@ function TodoContainer({ todos }: { todos: TodoObj[] }) {
           )
      )
 
+     function handleChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+          const todosOnEditMode: number = todos.findIndex((item: TodoObj) => (
+               item.onEditMode
+          ))
+          if (todosOnEditMode >= 0) {
+               setShowMessage((prevState: ShowMessage) => (
+                    {
+                         ...prevState,
+                         showOnEditMode: true
+                    }
+               ))
+          }
+          else {
+               setSelectedOption(event.target.value)
+          }
+     }
+
      return (
           <div className='flex flex-col gap-2'>
                <div className='flex justify-between mb-6 px-3'>
                     <fieldset>
                          <label>Filter:</label>
-                         <select name="filter" className='ms-2 ps-1 pe-14 py-1 cursor-pointer rounded-md focus:outline-0' value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
+                         <select name="filter" className='ms-2 ps-1 pe-14 py-1 cursor-pointer rounded-md focus:outline-0' value={selectedOption} onChange={handleChange}>
                               <option value="all">All</option>
                               <option value="completed">Completed</option>
                               <option value="todos">Todos</option>

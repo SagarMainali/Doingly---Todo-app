@@ -156,7 +156,7 @@ function App() {
           <h1 className='text-center text-[2.2rem] text-bluey font-semibold underline'>My Todos</h1>
           <Header todos={todos} setTodos={setTodos} setShowMessage={setShowMessage} />
           <hr className='border border-gray-300' />
-          <TodoContainer todos={todos} />
+          <TodoContainer todos={todos} setShowMessage={setShowMessage} />
         </div >
         {showMessage.showTodoAdded && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-8 -translate-x-2/4">"New todo added"</div>}
         {showMessage.showTodoDeleted && <div className="text-sm text-fwhite font-semibold bg-gray-600 px-3 py-1 rounded-md fixed left-2/4 bottom-5 -translate-x-2/4">"Todo deleted"</div>}
