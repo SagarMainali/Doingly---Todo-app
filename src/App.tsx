@@ -164,7 +164,7 @@ function App() {
     <FunctionContext.Provider value={{ removeTodo, enterEditMode, saveEditedTodo, changeChecked }} >
       <div className='py-8 px-2 md:px-20'>
         <div className="container mx-auto bg-graay py-8 px-4 sm:px-12 rounded-lg flex flex-col gap-10">
-          <h1 className='text-center text-[2.2rem] text-bluey font-semibold underline'>My Todos</h1>
+          <h1 className='text-center text-[2.2rem] text-bluey font-semibold underline'>Doingly</h1>
           <Header todos={todos} setTodos={setTodos} setShowMessage={setShowMessage} />
           <hr className='border border-gray-300' />
           <TodoContainer todos={todos} setShowMessage={setShowMessage} />
