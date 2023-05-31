@@ -3,7 +3,7 @@
 It's a todo app made using react typescript and tailwind css. It lets you do everything that a simple todo app has to. 
 
 
-## Demo
+## Live demo
 
 https://sagarmainali.github.io/Doingly-todo-app/
 
