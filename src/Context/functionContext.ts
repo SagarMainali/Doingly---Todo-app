@@ -1,4 +1,4 @@
-// this context holds all the function to be passed directly to nested child component
+// this context contains the types that defines all the function to be passed directly to the nested child component
 
 import { createContext } from "react";
 
